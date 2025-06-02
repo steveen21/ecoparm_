@@ -1,0 +1,65 @@
+{% extends "paginas/base_interfaz_admin.html" %}
+{% load static %}
+
+{% block titulo %}Admin_Emergencias{% endblock %}
+
+{% block estilos %}
+<link rel="stylesheet" href="{% static 'aplicacion/css/style_admin_evidencias3.css' %}">
+{% endblock %}
+
+{% block contenido %}
+<main class="main-content">
+    <div class="dashboard">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">Emergencias Reportadas</h1>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Fecha</th>
+                        <th>Reportada por</th>
+                        <th>Zona</th>
+                        <th>Tipo</th>
+                        <th>Gravedad</th>
+                        <th>Imagen</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for emergencia in emergencias %}
+                    <tr>
+                        <td>{{ emergencia.numero }}</td>
+                        <td>{{ emergencia.fecha|date:"Y-m-d" }}</td>
+                        <td>
+                            {{ emergencia.usuario.nombre }} {{ emergencia.usuario.apellido }}
+                        </td>
+                        <td>
+                            {% if emergencia.zona %}
+                            {{ emergencia.zona.nombre }}
+                            {% else %}
+                            Sin zona
+                            {% endif %}
+
+                        </td>
+                        <td>{{ emergencia.tipo }}</td>
+                        <td>{{ emergencia.gravedad }}</td>
+                        <td>
+                            <a href="{{ emergencia.imagen_url }}" class="evidence-link" target="_blank">
+                                <i class="fas fa-image"></i> Ver
+                            </a>
+                        </td>
+                        <td>{{ emergencia.observaciones|truncatechars:50 }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8">No hay emergencias registradas.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+{% endblock %}
