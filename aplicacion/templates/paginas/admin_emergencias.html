@@ -9,6 +9,23 @@
 
 {% block contenido %}
 <main class="main-content">
+
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb">
+        <a href="{% url 'logout' %}" class="breadcrumb-link">
+            <i class="fas fa-home"></i> INICIO
+        </a>
+        <span class="breadcrumb-separator">›</span>
+        <a href="{% url 'admin_dashboard' %}" class="breadcrumb-link">
+            <i class="fas fa-cogs"></i> PANEL ADMINISTRATIVO
+        </a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-current">
+            <i class="fas fa-exclamation-triangle"></i> EMERGENCIAS
+        </span>
+    </nav>
+    <p></p>
+
     <div class="dashboard">
         <div class="dashboard-header">
             <h1 class="dashboard-title">Emergencias Reportadas</h1>

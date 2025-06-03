@@ -9,14 +9,42 @@
 
 {% block contenido %}
 <main class="main-content">
+
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb">
+        <a href="{% url 'logout' %}" class="breadcrumb-link">
+            <i class="fas fa-home"></i> INICIO
+        </a>
+        <span class="breadcrumb-separator">›</span>
+        <a href="{% url 'admin_dashboard' %}" class="breadcrumb-link">
+            <i class="fas fa-cogs"></i> PANEL ADMINISTRATIVO
+        </a>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-current">
+            <i class="fas fa-file-alt"></i> EVIDENCIAS
+        </span>
+    </nav>
+    <p></p>
+
     <div class="tab-pane" id="evidence">
         <div class="dashboard">
             <div class="dashboard-header">
                 <h1 class="dashboard-title">Gestión de Evidencias</h1>
+
+                <!-- Buscador -->
+                <div style="margin-top: 15px;">
+                    <input type="text" id="buscadorEvidencias" placeholder="Buscar..." style="padding: 6px 10px; border: 1px solid #ccc; border-radius: 5px; max-width: 300px;">
+                    <button id="btnBuscar" style="padding: 6px 12px; margin-left: 5px; border-radius: 5px; background-color: #4CAF50; color: white; border: none;">
+                        Buscar
+                    </button>
+                    <button id="btnLimpiar" style="padding: 6px 12px; margin-left: 5px; border-radius: 5px; background-color: #888; color: white; border: none;">
+                        Limpiar
+                    </button>
+                </div>
             </div>
 
             <!-- Tabla de evidencias actualizada -->
-            <div class="table-responsive">
+            <div class="table-responsive" style="margin-top: 20px;">
                 <table>
                     <thead>
                         <tr>
@@ -45,8 +73,7 @@
                                 </a>
                             </td>
                             <td class="action-buttons">
-                                <a href="{% url 'descargar_evidencia_pdf' evidencia.id %}" class="btn-icon download"
-                                    title="Descargar PDF" target="_blank">
+                                <a href="{% url 'descargar_evidencia_pdf' evidencia.id %}" class="btn-icon download" title="Descargar PDF" target="_blank">
                                     <i class="fas fa-download"></i>
                                 </a>
                             </td>
@@ -65,5 +92,5 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="{% static 'aplicacion/js/script_admin_evidencias.js' %}" defer></script>
+<script src="{% static 'aplicacion/js/script_admin_evidencias.js' %}"></script>  
 {% endblock %}

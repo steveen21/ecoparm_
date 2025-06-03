@@ -1,30 +1,53 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Abrir modal
+    // === BUSCADOR ===
+    const btnBuscar = document.getElementById('btnBuscar');
+    const btnLimpiar = document.getElementById('btnLimpiar');
+    const inputBuscar = document.getElementById('buscadorEvidencias');
+    const filas = document.querySelectorAll('table tbody tr');
+
+    if (btnBuscar && inputBuscar && filas.length > 0) {
+        btnBuscar.addEventListener('click', function () {
+            const texto = inputBuscar.value.toLowerCase().trim();
+            filas.forEach(fila => {
+                const visible = fila.textContent.toLowerCase().includes(texto);
+                fila.style.display = visible ? '' : 'none';
+            });
+        });
+    }
+
+    if (btnLimpiar) {
+        btnLimpiar.addEventListener('click', function () {
+            inputBuscar.value = '';
+            filas.forEach(fila => fila.style.display = '');
+        });
+    }
+
+    // === MODAL ===
     const addBtn = document.getElementById('add-evidence-btn');
     if (addBtn) {
         addBtn.addEventListener('click', function () {
             const modal = document.getElementById('add-evidence-modal');
-            modal.classList.add('show');
+            if (modal) modal.classList.add('show');
         });
     }
 
-    // Cerrar modal con botón x
     const closeX = document.querySelector('.modal-close');
     if (closeX) {
         closeX.addEventListener('click', function () {
-            document.getElementById('add-evidence-modal').classList.remove('show');
+            const modal = document.getElementById('add-evidence-modal');
+            if (modal) modal.classList.remove('show');
         });
     }
 
-    // Cerrar modal con botón cancelar
     const closeBtn = document.querySelector('.modal-close-btn');
     if (closeBtn) {
         closeBtn.addEventListener('click', function () {
-            document.getElementById('add-evidence-modal').classList.remove('show');
+            const modal = document.getElementById('add-evidence-modal');
+            if (modal) modal.classList.remove('show');
         });
     }
 
-    // Cambiar pestañas
+    // === TABS ===
     document.querySelectorAll('.tab').forEach(tab => {
         tab.addEventListener('click', function () {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -32,39 +55,31 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Manejo del botón de descarga
+    // === DESCARGA ===
     document.querySelectorAll('.download-btn').forEach(btn => {
         const dropdown = btn.nextElementSibling;
-
         btn.addEventListener('click', function (e) {
-            e.stopPropagation(); // Prevenir que se cierre al hacer clic
-            // Ocultar otros dropdowns
+            e.stopPropagation();
             document.querySelectorAll('.dropdown-content').forEach(dc => {
                 if (dc !== dropdown) dc.style.display = 'none';
             });
-            // Alternar visibilidad
             dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
         });
     });
 
-    // Cerrar cualquier dropdown al hacer clic fuera
     document.addEventListener('click', function () {
         document.querySelectorAll('.dropdown-content').forEach(dc => {
             dc.style.display = 'none';
         });
     });
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Ocultar menú hamburguesa
+    // === AJUSTES DE UI (Sidebar y contenido) ===
     const menuToggle = document.querySelector('.sidebar-toggle, .navbar-toggler, [data-toggle="sidebar"]');
     if (menuToggle) menuToggle.style.display = 'none';
 
-    // Ocultar iconos de carpetas
     const folderIcons = document.querySelectorAll('.fa-folder, .fas.fa-folder, i[class*="folder"]');
     folderIcons.forEach(icon => icon.style.display = 'none');
 
-    // Ajustar margen del contenido principal
     const mainContent = document.querySelector('.main-content');
     if (mainContent) {
         mainContent.style.marginLeft = '0';
